@@ -28,5 +28,8 @@ DerivedData/
 *.dylib
 *.dSYM/
 
+# Build output
+dist/
+
 # Claude Code
 .claude/

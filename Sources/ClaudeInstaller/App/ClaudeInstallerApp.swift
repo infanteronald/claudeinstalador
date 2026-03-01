@@ -12,7 +12,7 @@ struct ClaudeInstallerApp: App {
                 .frame(width: 720, height: 540)
                 .fixedSize()
         }
-        .windowStyle(.hiddenTitleBar)
+        .windowStyle(.titleBar)
         .windowResizability(.contentSize)
     }
 }
