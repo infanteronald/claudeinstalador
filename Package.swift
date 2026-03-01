@@ -14,6 +14,10 @@ let package = Package(
                 .process("Resources")
             ]
         ),
+        .executableTarget(
+            name: "ClaudeUninstaller",
+            path: "Sources/ClaudeUninstaller"
+        ),
         .testTarget(
             name: "ClaudeInstallerTests",
             dependencies: ["ClaudeInstaller"],
