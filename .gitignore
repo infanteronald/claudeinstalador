@@ -1,0 +1,32 @@
+# Swift / SPM
+.build/
+.swiftpm/
+Package.resolved
+
+# Xcode (si alguien abre el proyecto con Xcode)
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+*.xcscmblueprint
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build artifacts
+*.o
+*.dylib
+*.dSYM/
+
+# Claude Code
+.claude/
