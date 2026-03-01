@@ -1,145 +1,169 @@
-# Contribuir a Claude Code Installer
+# Contributing / Contribuir
 
-Gracias por tu interés en contribuir. Esta guía te ayudará a empezar.
+<table>
+<tr>
+<td width="50%">
 
-## Requisitos previos
+## 🇬🇧 English
 
-- macOS 13.0 (Ventura) o superior
-- Swift 5.9+ (incluido con Xcode Command Line Tools)
+Thanks for your interest in contributing!
+
+</td>
+<td width="50%">
+
+## 🇪🇸 Español
+
+¡Gracias por tu interés en contribuir!
+
+</td>
+</tr>
+</table>
+
+---
+
+## Prerequisites / Requisitos Previos
+
+- macOS 13.0 (Ventura) or later / o superior
+- Swift 5.9+ (included with Xcode Command Line Tools)
 - Git
 
 ```bash
+# Install Command Line Tools (if you don't have them)
 # Instalar Command Line Tools (si no los tienes)
 xcode-select --install
 
-# Verificar Swift
+# Verify Swift / Verificar Swift
 swift --version
 ```
 
-## Configuración del entorno
+## Setup / Configuración
 
 ```bash
-# Clonar el repositorio
-git clone https://github.com/TU_USUARIO/claudeinstalador.git
+# Clone / Clonar
+git clone https://github.com/infanteronald/claudeinstalador.git
 cd claudeinstalador
 
-# Compilar
+# Build / Compilar
 swift build
 
-# Ejecutar
+# Run / Ejecutar
 swift run
 
-# Tests
+# Test
 swift test
 ```
 
-## Convenciones del proyecto
+## Project Conventions / Convenciones del Proyecto
 
-### Estructura de código
+### Code Structure / Estructura de Código
 
-| Directorio | Contenido |
+| Directory / Directorio | Contents / Contenido |
 |-----------|-----------|
-| `App/` | Entry point, estado global, delegate |
-| `Models/` | Structs, enums, tipos de datos |
-| `Services/` | Lógica de negocio (un servicio por responsabilidad) |
-| `Views/` | Vistas SwiftUI |
-| `Views/Components/` | Componentes reutilizables |
-| `Utilities/` | Helpers y wrappers |
-| `Resources/` | Archivos estáticos (templates, configuración) |
+| `App/` | Entry point, global state, delegate |
+| `Models/` | Structs, enums, data types / tipos de datos |
+| `Services/` | Business logic (one service per responsibility / un servicio por responsabilidad) |
+| `Views/` | SwiftUI views / Vistas SwiftUI |
+| `Views/Components/` | Reusable components / Componentes reutilizables |
+| `Utilities/` | Helpers and wrappers |
+| `Resources/` | Static files (templates, config / configuración) |
 
-### Strings bilingües
+### Bilingual Strings / Strings Bilingües
 
-Toda cadena visible al usuario **debe** tener versión en español e inglés:
+Every user-facing string **must** have both English and Spanish versions:
+
+Toda cadena visible al usuario **debe** tener versión en inglés y español:
 
 ```swift
-// Correcto
+// Correct / Correcto
 Text(Locale.isSpanish
     ? "Descarga completada"
     : "Download complete")
 
-// Incorrecto — solo un idioma
+// Wrong / Incorrecto — only one language / solo un idioma
 Text("Download complete")
 ```
 
-### Errores
+### Errors / Errores
 
-Usar `InstallerError` para todos los errores. Cada caso incluye `humanReadableMessage` bilingüe:
+Use `InstallerError` for all errors. Each case includes a bilingual `humanReadableMessage`:
 
 ```swift
 throw InstallerError.downloadFailed(url: urlString, statusCode: code)
 ```
 
-### Servicios
+### Services / Servicios
 
-Los servicios deben ser `Sendable`-safe y usar `async/await`:
+Services must be `Sendable`-safe and use `async/await`:
 
 ```swift
-final class MiServicio: @unchecked Sendable {
-    func ejecutar() async throws {
-        // ...
+final class MyService: @unchecked Sendable {
+    func execute() async throws {
+        // Async logic
     }
 }
 ```
 
-### Concurrencia
+### Concurrency / Concurrencia
 
-- Usar `async/await` (no callbacks ni Combine)
-- `AppState` es `@MainActor`
-- `ShellExecutor.run()` soporta timeout para evitar bloqueos
+- Use `async/await` (not callbacks or Combine)
+- `AppState` is `@MainActor`
+- `ShellExecutor.run()` supports timeout to prevent hangs
 
-### Seguridad
+### Security / Seguridad
 
-- **Nunca usar `sudo`** — manejar permisos con `chown` o `AuthorizationServices`
-- **Operaciones idempotentes** — verificar antes de modificar archivos de perfil
-- **No almacenar secretos en código** — usar Keychain para claves API
+- **Never use `sudo`** — handle permissions with `chown` or `AuthorizationServices`
+- **Idempotent operations** — check before modifying shell profile files
+- **No secrets in code** — use Keychain for API keys
 
-## Flujo de contribución
+## Contribution Flow / Flujo de Contribución
 
-1. **Fork** el repositorio
-2. **Crea un branch** desde `main`:
+1. **Fork** the repository / el repositorio
+2. **Create a branch** from `main`:
    ```bash
-   git checkout -b feature/mi-mejora
+   git checkout -b feature/my-improvement
    ```
-3. **Haz tus cambios** siguiendo las convenciones
-4. **Compila y verifica**:
+3. **Make changes** following conventions / siguiendo las convenciones
+4. **Build and verify / Compila y verifica**:
    ```bash
    swift build && swift test
    ```
-5. **Commit** con mensaje descriptivo:
+5. **Commit** with a descriptive message / con mensaje descriptivo:
    ```bash
-   git commit -m "Add: descripción breve del cambio"
+   git commit -m "Add: brief description of change"
    ```
-6. **Push** y crea un **Pull Request**
+6. **Push** and create a **Pull Request**
 
-### Formato de commits
+### Commit Format / Formato de Commits
 
 ```
-Add: nueva funcionalidad
-Fix: corrección de bug
-Update: mejora a funcionalidad existente
-Refactor: cambio de estructura sin cambio funcional
-Docs: cambios en documentación
+Add: new feature / nueva funcionalidad
+Fix: bug fix / corrección de bug
+Update: improvement to existing feature / mejora a funcionalidad existente
+Refactor: structural change without functional change / cambio sin cambio funcional
+Docs: documentation changes / cambios en documentación
 ```
 
-## Áreas donde se necesita ayuda
+## Areas Where Help is Needed / Áreas de Ayuda
 
-- Mejoras de UI/UX en las vistas del wizard
-- Soporte para más shells (fish, nushell)
-- Tests unitarios adicionales
-- Traducciones a otros idiomas
-- Script de creación de .dmg para distribución
-- Firma y notarización de la app
+- UI/UX improvements in wizard views / Mejoras de UI/UX
+- Support for more shells (fish, nushell)
+- Additional unit tests / Tests unitarios adicionales
+- Translations to other languages / Traducciones a otros idiomas
+- App signing and notarization / Firma y notarización de la app
+- CI/CD pipeline
 
-## Reportar bugs
+## Reporting Bugs / Reportar Bugs
 
-Abre un issue con:
+Open an issue with / Abre un issue con:
 
-1. Versión de macOS
-2. Arquitectura (Apple Silicon / Intel)
-3. Paso donde ocurrió el error
-4. Mensaje de error (si aplica)
-5. Captura de pantalla (si aplica)
+1. macOS version / Versión de macOS
+2. Architecture / Arquitectura (Apple Silicon / Intel)
+3. Step where the error occurred / Paso donde ocurrió el error
+4. Error message (if applicable) / Mensaje de error (si aplica)
+5. Screenshot (if applicable) / Captura de pantalla (si aplica)
 
-## Código de conducta
+## Code of Conduct / Código de Conducta
+
+Be respectful. Be constructive. We're all here to learn.
 
 Sé respetuoso. Sé constructivo. Todos estamos aquí para aprender.
